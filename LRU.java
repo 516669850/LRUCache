@@ -1,4 +1,4 @@
-package LRUcache;
+package LRUCache;
 
 import java.util.HashMap;
 
@@ -13,9 +13,9 @@ import java.util.HashMap;
  * */
 
 public class LRU {
-    private HashMap<Integer,DoubleLinkedListNode> map = new HashMap<>();
-    private DoubleLinkedListNode head;
-    private DoubleLinkedListNode end;
+    private HashMap<Integer, LRUcache.DoubleLinkedListNode> map = new HashMap<>();
+    private LRUcache.DoubleLinkedListNode head;
+    private LRUcache.DoubleLinkedListNode end;
     private int capacity;
     private int len;
 
@@ -26,7 +26,7 @@ public class LRU {
 
     public int get(int key){
         if(map.containsKey(key)){
-            DoubleLinkedListNode latest = map.get(key);
+            LRUcache.DoubleLinkedListNode latest = map.get(key);
             removeNode(latest);
             setHead(latest);
             return latest.val;
@@ -35,10 +35,10 @@ public class LRU {
         }
     }
 
-    public void removeNode(DoubleLinkedListNode node){
-        DoubleLinkedListNode cur = node;
-        DoubleLinkedListNode pre = node.pre;
-        DoubleLinkedListNode next = node.next;
+    public void removeNode(LRUcache.DoubleLinkedListNode node){
+        LRUcache.DoubleLinkedListNode cur = node;
+        LRUcache.DoubleLinkedListNode pre = node.pre;
+        LRUcache.DoubleLinkedListNode next = node.next;
 
         if(pre != null){
             pre.next = next;
@@ -53,7 +53,7 @@ public class LRU {
         }
     }
 
-    public void setHead(DoubleLinkedListNode node){
+    public void setHead(LRUcache.DoubleLinkedListNode node){
         node.next = head;
         node.pre = null;
         if(head != null){
@@ -68,12 +68,12 @@ public class LRU {
 
     public void set(int key,int val){
         if(map.containsKey(key)){
-            DoubleLinkedListNode oldNode = map.get(key);
+            LRUcache.DoubleLinkedListNode oldNode = map.get(key);
             oldNode.val = val;
             removeNode(oldNode);
             setHead(oldNode);
         }else{
-            DoubleLinkedListNode newNode = new DoubleLinkedListNode(key,val);
+            LRUcache.DoubleLinkedListNode newNode = new LRUcache.DoubleLinkedListNode(key,val);
             if(len < capacity){
                 setHead(newNode);
                 map.put(key,newNode);
